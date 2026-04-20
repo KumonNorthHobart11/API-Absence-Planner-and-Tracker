@@ -1,0 +1,6 @@
+@Api_absence_planner_and_tracker_HostAddress = http://localhost:5024
+
+GET {{Api_absence_planner_and_tracker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
