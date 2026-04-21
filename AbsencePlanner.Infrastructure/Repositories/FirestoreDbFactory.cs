@@ -1,8 +1,6 @@
 using AbsencePlanner.Core.Configuration;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
-using Google.Cloud.Firestore.V1;
-using Grpc.Auth;
 using Microsoft.Extensions.Options;
 
 namespace AbsencePlanner.Infrastructure.Repositories;
@@ -48,16 +46,15 @@ public class FirestoreDbFactory
             DatabaseId = dbId
         };
 
-        // Production: credential JSON is injected via environment variable Firebase__CredentialJson
+        // Production: full service account JSON is injected via Firebase__CredentialJson env var.
+        // Use builder.Credential so the SDK handles OAuth + SSL channel setup correctly.
         if (!string.IsNullOrWhiteSpace(cfg.CredentialJson))
         {
-            var credential = GoogleCredential
+            builder.Credential = GoogleCredential
                 .FromJson(cfg.CredentialJson)
                 .CreateScoped("https://www.googleapis.com/auth/datastore");
-
-            builder.ChannelCredentials = credential.ToChannelCredentials();
         }
-        // Local dev: credential is read from a file path
+        // Local dev: point GOOGLE_APPLICATION_CREDENTIALS at the JSON file on disk.
         else if (!string.IsNullOrWhiteSpace(cfg.CredentialPath))
         {
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", cfg.CredentialPath);
