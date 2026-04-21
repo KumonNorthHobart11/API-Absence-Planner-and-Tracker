@@ -25,6 +25,9 @@
     <None Update="absence-planner-and-tracker-firebase-adminsdk-fbsvc-e524e7dc2a.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="firebase-credentials.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

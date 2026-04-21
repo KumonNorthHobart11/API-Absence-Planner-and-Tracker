@@ -54,10 +54,21 @@ public class FirestoreDbFactory
                 .FromJson(cfg.CredentialJson)
                 .CreateScoped("https://www.googleapis.com/auth/datastore");
         }
-        // Local dev: point GOOGLE_APPLICATION_CREDENTIALS at the JSON file on disk.
+        // Local dev: load credential directly from the JSON file on disk.
         else if (!string.IsNullOrWhiteSpace(cfg.CredentialPath))
         {
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", cfg.CredentialPath);
+            var fullPath = Path.IsPathRooted(cfg.CredentialPath)
+                ? cfg.CredentialPath
+                : Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, cfg.CredentialPath));
+
+            if (!File.Exists(fullPath))
+                throw new FileNotFoundException(
+                    $"Firebase credential file not found at '{fullPath}'. " +
+                    "Check Firebase:CredentialPath in appsettings.Development.json.", fullPath);
+
+            builder.Credential = GoogleCredential
+                .FromFile(fullPath)
+                .CreateScoped("https://www.googleapis.com/auth/datastore");
         }
         else
         {
