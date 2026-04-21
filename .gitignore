@@ -16,3 +16,7 @@ serviceAccountKey.json
 # Local development secrets — NEVER commit these
 appsettings.Development.json
 **/appsettings.Development.json
+
+# App secrets — NEVER commit these
+appsettings.json
+**/appsettings.json
