@@ -5,12 +5,14 @@ obj/
 *.suo
 .vs/
 
-# Firebase credentials — NEVER commit this
+# Firebase credentials — NEVER commit these
+*firebase-adminsdk*.json
+**/*firebase-adminsdk*.json
 firebase-credentials.json
 **/firebase-credentials.json
-absence-planner-and-tracker-firebase-adminsdk-*.json
-**/absence-planner-and-tracker-firebase-adminsdk-*.json
+**/serviceAccountKey.json
+serviceAccountKey.json
 
-# Local development secrets — NEVER commit this
+# Local development secrets — NEVER commit these
 appsettings.Development.json
 **/appsettings.Development.json

@@ -3,7 +3,10 @@ namespace AbsencePlanner.Core.Configuration;
 public class FirebaseSettings
 {
     public string ProjectId { get; set; } = string.Empty;
+    /// <summary>Local dev only — path to the service account JSON file.</summary>
     public string CredentialPath { get; set; } = string.Empty;
+    /// <summary>Production — full service account JSON content, injected via environment variable.</summary>
+    public string CredentialJson { get; set; } = string.Empty;
     public string DatabaseId { get; set; } = "(default)";
 }
 

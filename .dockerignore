@@ -7,6 +7,3 @@
 
 # Never bake local secrets into the image
 **/appsettings.Development.json
-
-# Firebase credential — inject at runtime via volume or secret
-**/*firebase-adminsdk*.json
